@@ -3,17 +3,20 @@ title: Kubespray 를 이용한 kubernetes 배포
 categories: [cloud, kubernetes]
 tags: [cloud, kubernetes, ansible, kubespray]
 image: /assets/img/k8s.png
+date: 2022-04-21 00:00:00 +09:00
 ---
 
 ## 개요
+
 ansible 을 활용하여 kubernetes 배포를 진행하는 프로젝트 입니다. 자세한 내용은 [이곳](https://github.com/kubernetes-sigs/kubespray)을 확인해주세요.<br>
 kubespray 로 배포한 kubernetes cloud 는 nginx proxy 를 이용해 자체 HA로 구성되어 있어 별도의 HA 구성을 하지않아도 자동으로 구성됩니다.<br><br>
 핸즈온 순서는 다음과 같습니다.<br>
->1. 의존성 패키지 설치 및 ssh 설정
->2. kubespray git clone
->3. ansible inventory 생성
->4. ping 테스트
->5. playbook 실행
+
+> 1.  의존성 패키지 설치 및 ssh 설정
+> 2.  kubespray git clone
+> 3.  ansible inventory 생성
+> 4.  ping 테스트
+> 5.  playbook 실행
 
 <br>클러스터의 사양은 다음과 같습니다.
 
@@ -24,22 +27,29 @@ kubespray 로 배포한 kubernetes cloud 는 nginx proxy 를 이용해 자체 HA
 > HDD: vda: 50G, vdb: 100G  
 > Network: 10.10.0.59, 10.10.0.4, 10.10.0.20
 
-
 ## Prerequisite
+
 ### python3 의존성 패키지 설치
+
 ```bash
 apt update && apt install -y python3-dev python3-pip gcc make
 ```
+
 ### git clone
+
 ```bash
 git clone https://github.com/kubernetes-sigs/kubespray.git
 ```
+
 ### Requirements Install
+
 ```bash
 cd kubespray
 pip3 install -r requirements.txt
 ```
+
 ### ansible version 확인
+
 ```bash
 ansible --version
 
@@ -49,25 +59,34 @@ ansible [core 2.12.3]
   ansible python module location = /usr/local/lib/python3.8/
   ...
 ```
+
 ### ssh setting
+
 ```bash
 ssh-keygen -t rsa
 for i in 59 4 20;do ssh-copy-id root@10.10.0.$i;done
 ```
 
 ## Inventory 설정 및 kubernetes 버전 확인
+
 ### sample 복사
+
 ```bash
 cp -rfp inventory/sample inventory/mycluster
 ```
+
 ### inventory builder을 이용해 inventory 생성
+
 ```bash
 declare -a IPS=(10.10.0.59 10.10.0.4 10.10.0.20)
 
 CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 ```
+
 ### inventory 수정
+
 `inventory/mycluster/hosts.yaml`
+
 ```yaml
 all:
   hosts:
@@ -109,8 +128,10 @@ all:
     calico_rr:
       hosts: {}
 ```
+
 ### kubernetes 설치 버전 확인
->kuberspray에서 지원하는 버전은 [이곳](https://github.com/kubernetes-sigs/kubespray#requirements)을 확인해주세요.
+
+> kuberspray에서 지원하는 버전은 [이곳](https://github.com/kubernetes-sigs/kubespray#requirements)을 확인해주세요.
 
 ```bash
 cat inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
@@ -122,7 +143,9 @@ kube_version: v1.23.5
 ```
 
 ## Node Check
+
 ### ansible ping
+
 ```
 ansible -m ping -i inventory/mycluster/hosts.yaml all -u root
 
@@ -150,13 +173,17 @@ node2 | SUCCESS => {
 ```
 
 ## Install
+
 ### ansible playbook 실행
+
 ```bash
 ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root -u root cluster.yml
 ```
 
 ## Test
+
 ### kubernetes node check
+
 ```bash
 kubectl get nodes -o wide
 
@@ -165,7 +192,9 @@ node1   Ready    control-plane,master   4d    v1.23.5   10.10.0.59    <none>    
 node2   Ready    control-plane,master   4d    v1.23.5   10.10.0.4     <none>        Ubuntu 20.04.3 LTS   5.4.0-91-generic   containerd://1.6.2
 node3   Ready    control-plane,master   4d    v1.23.5   10.10.0.20    <none>        Ubuntu 20.04.3 LTS   5.4.0-91-generic   containerd://1.6.2
 ```
+
 ### kubernetes core pod check
+
 ```bash
 kubectl get all -n kube-system
 
@@ -213,13 +242,13 @@ replicaset.apps/dns-autoscaler-7979fb6659            1         1         1      
 
 ```
 
-
 ## 마치며
+
 kubespray 를 통한 kubernetes cloud 배포를 진행해봤는데, 확실히 ansible 을 더 공부하면 좋을 것 같다는 생각이 들었습니다. <br>
 다음은 배포된 kubernetes 에 Rook 을 이용한 Ceph 배포 및 StroageClass 생성을 진행해보겠습니다.
 
-
 ## Referance
+
 <https://github.com/kubernetes-sigs/kubespray>
 
 ---
