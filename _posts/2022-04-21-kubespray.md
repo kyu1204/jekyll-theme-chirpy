@@ -1,6 +1,6 @@
 ---
 title: Kubespray 를 이용한 kubernetes 배포
-categories: [cloud, devops]
+categories: [cloud, kubernetes]
 tags: [cloud, kubernetes, ansible, kubespray]
 image: /assets/img/k8s.png
 ---
