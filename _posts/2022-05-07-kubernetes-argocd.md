@@ -231,8 +231,8 @@ CD 툴인 ArgoCD 를 kubernetes cluster 위에 배포, Git Repo 연결을 통해
 
 ## Referance
 
-<https://argo-cd.readthedocs.io/en/stable/#getting-started>
-<br>
-<https://github.com/argoproj/argo-cd/releases?q=stable&expanded=true>
-<br>
-<https://velog.io/@airoasis/ArgoCD-Kubernetes-Deployment>
+- https://argo-cd.readthedocs.io/en/stable/#getting-started
+- https://github.com/argoproj/argo-cd/releases?q=stable&expanded=true
+- https://velog.io/@airoasis/ArgoCD-Kubernetes-Deployment
+---
+

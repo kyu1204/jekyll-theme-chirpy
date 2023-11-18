@@ -17,7 +17,7 @@ GitOps 인 ArgoCD가 바라보는 Git Repository 에 비밀번호등 보안이 �
 #### Vault-Guides git clone (Helm Values)
 
 ```bash
-git clone <https://github.com/hashicorp/vault-guides.git>
+git clone https://github.com/hashicorp/vault-guides.git
 cd vault-guides/operations/provision-vault/kubernetes/minikube/getting-started
 ```
 
@@ -30,7 +30,7 @@ kubectl create ns vault
 #### Consul 설치 (Helm)
 
 ```bash
-helm repo add hashicorp <https://helm.releases.hashicorp.com>
+helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
 helm install consul hashicorp/consul --values helm-consul-values.yml -n vault
 ```
@@ -93,9 +93,8 @@ kubectl create -f pvc.yaml
 
 ```bash
 helm install vault hashicorp/vault --values helm-vault-values.yml -n vault
-
-*** Pod Running 0/1 정상 (Vault Initialize 및 Unseal을 해야 1/1로 올라옴)**
 ```
+`** Pod Running 0/1 정상 (Vault Initialize 및 Unseal을 해야 1/1로 올라옴) **`
 
 #### Vault Initialize 및 Unseal
 
@@ -128,7 +127,8 @@ cat keys.json | jq -r ".root_token"
 
 ```bash
 kubectl exec --stdin=true --tty=true -n vault vault-0 -- /bin/sh
-
+```
+```bash
 vault login
 Token (will be hidden): 토큰 값
 ```
@@ -213,7 +213,7 @@ metadata:
   namespace: argocd
 type: Opaque
 stringData:
-  VAULT_ADDR: <http://10.233.38.48:8200>
+  VAULT_ADDR: http://10.233.38.48:8200
   AVP_TYPE: vault
   AVP_AUTH_TYPE: k8s
   AVP_K8S_ROLE: argocd
@@ -270,7 +270,7 @@ initContainers 에 download-tools 추가
         args:
           - >-
             wget -O argocd-vault-plugin
-            <https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v${AVP_VERSION}/argocd-vault-plugin_${AVP_VERSION}_linux_amd64> &&
+            https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v${AVP_VERSION}/argocd-vault-plugin_${AVP_VERSION}_linux_amd64 &&
             chmod +x argocd-vault-plugin &&
             mv argocd-vault-plugin /custom-tools/
         volumeMounts:
