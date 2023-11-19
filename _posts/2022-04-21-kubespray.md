@@ -1,6 +1,6 @@
 ---
 title: Kubespray 를 이용한 kubernetes 배포
-categories: [cloud, kubernetes]
+categories: [kubernetes]
 tags: [cloud, kubernetes, ansible, kubespray]
 image: /assets/img/k8s.png
 date: 2022-04-21 00:00:00 +09:00

@@ -1,6 +1,6 @@
 ---
 title: Kubernetes cloud에 ArgoCD배포하기
-categories: [cloud, argocd]
+categories: [kubernetes, argocd]
 tags: [cloud, kubernetes, argocd, devops, ci/cd]
 image: cover-argo.jpeg
 date: 2022-05-07 00:00:00 +09:00

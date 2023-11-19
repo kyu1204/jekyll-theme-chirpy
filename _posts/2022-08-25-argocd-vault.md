@@ -1,6 +1,6 @@
 ---
 title: ArgoCD에 Vault 연동하기
-categories: [cloud, argocd, vault]
+categories: [kubernetes, vault]
 tags: [cloud, argocd, devops, ci/cd, vault, secure]
 image: /assets/img/argocd-vault.webp
 date: 2022-08-25 00:00:00 +09:00
@@ -142,9 +142,9 @@ vault secrets enable -path=secret kv-v2
 `secret`에 secret data을 생성합니다.
 
 ```bash
-vault kv put secret/example-app/secret \\
-		db-user="example-app" \\
-		db-password="password" \\
+vault kv put secret/example-app/secret \
+		db-user="example-app" \
+		db-password="password" \
 		db-root-password="root-password"
 ```
 
@@ -155,9 +155,9 @@ kubernetes의 서비스 계정 토큰으로 vault secret에 접근하기 위해�
 ```bash
 vault auth enable kubernetes
 
-vault write auth/kubernetes/config \\
-    token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \\
-    kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \\
+vault write auth/kubernetes/config \
+    token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+    kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
     kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 ```
 
@@ -175,10 +175,10 @@ ArgoCD의 `default` 서비스 계정과 vault의 `example-app` 정책을 연
 ArgoCD의 서비스 계정은 `kubectl get sa -n argocd` 명령으로 확인할 수 있습니다.
 
 ```bash
-vault write auth/kubernetes/role/argocd \\
-    bound_service_account_names=default \\
-    bound_service_account_namespaces=argocd \\
-    policies=example-app \\
+vault write auth/kubernetes/role/argocd \
+    bound_service_account_names=default \
+    bound_service_account_namespaces=argocd \
+    policies=example-app \
     ttl=24h
 ```
 
@@ -258,6 +258,7 @@ volumes 에 custom-tools 추가
 ```
 
 initContainers 에 download-tools 추가
+AVP_VERSION 은 github release 참고 ([링크](https://github.com/argoproj-labs/argocd-vault-plugin/releases))
 
 ```bash
       initContainers:
@@ -266,7 +267,7 @@ initContainers 에 download-tools 추가
         command: [sh, -c]
         env:
           - name: AVP_VERSION
-            value: "1.10.1"
+            value: "1.17.0"
         args:
           - >-
             wget -O argocd-vault-plugin
@@ -306,9 +307,9 @@ data:
 #### ArgoCD plugin 연결
 
 ArgoCD에서 앱 등록화면에서 `Directory` 를 클릭해서 `Plugin` 으로 변경합니다.
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d16b1448-b32a-4c00-a26a-f5a54db07d7c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220825%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220825T093204Z&X-Amz-Expires=86400&X-Amz-Signature=5b9429221fe65a991447ec6247bc3357b2574af07df2f6fd2d3bc1c998a75336&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![Untitled](/assets/img/argo-vault-1.png)
 플러그인 종류는 현재 kustomize를 사용하고 있기 때문에 `argocd-vault-plugin-kustomize` 를 선택합니다.
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/e971a7e9-4467-45ef-8c71-ae0454aed127/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220825%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220825T093226Z&X-Amz-Expires=86400&X-Amz-Signature=ea998ceba7a69a5e27363f624c36ae5877a43da66bf15aa5831f558017cf4699&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![Untitled](/assets/img/argo-vault-2.png)
 
 ## Test
 
