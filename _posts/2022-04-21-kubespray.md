@@ -247,8 +247,6 @@ replicaset.apps/dns-autoscaler-7979fb6659            1         1         1      
 kubespray 를 통한 kubernetes cloud 배포를 진행해봤는데, 확실히 ansible 을 더 공부하면 좋을 것 같다는 생각이 들었습니다. <br>
 다음은 배포된 kubernetes 에 Rook 을 이용한 Ceph 배포 및 StroageClass 생성을 진행해보겠습니다.
 
-## Referance
+## Reference
 
-<https://github.com/kubernetes-sigs/kubespray>
-
----
+- https://github.com/kubernetes-sigs/kubespray

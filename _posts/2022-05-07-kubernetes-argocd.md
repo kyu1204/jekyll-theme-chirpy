@@ -227,10 +227,8 @@ resources:
 
 CD 툴인 ArgoCD 를 kubernetes cluster 위에 배포, Git Repo 연결을 통해 kubernetes YAML 배포까지 진행해 봤습니다. 오늘 작성한 샘플 YAML 은 [이곳](https://github.com/kyu1204/argocd_resource)에 있습니다. 다음은 Vault + argocd-vault plugin 을 통해 배포 시점에 Vault 연동을 통한 secret 데이터 바인딩을 진행해보겠습니다.
 
-## Referance
+## Reference
 
 - https://argo-cd.readthedocs.io/en/stable/#getting-started
 - https://github.com/argoproj/argo-cd/releases?q=stable&expanded=true
 - https://velog.io/@airoasis/ArgoCD-Kubernetes-Deployment
----
-

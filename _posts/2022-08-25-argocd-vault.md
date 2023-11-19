@@ -399,7 +399,7 @@ resources:
 consul install 에서 pvc에 대한 설명이 없어서 삽질을 했는데, 미리 만들어둔 StorageClass 를 등록해주면서 쉽게 해결했습니다. (Rook Ceph 문서 참조)
 secret 에 대한 중요한 데이터를 private git server에 올리면 상관 없겠지만, github 등 public한 repository에 올릴때는 유용하게 사용할 수 있을 것 같습니다.
 
-## Referance
+## Reference
 
 - HashiCorp Vault: [](https://www.vaultproject.io/)[https://www.vaultproject.io/](https://www.vaultproject.io/)
 - argocd-vault-plugin: [](https://argocd-vault-plugin.readthedocs.io/en/stable/)[https://argocd-vault-plugin.readthedocs.io/en/stable/](https://argocd-vault-plugin.readthedocs.io/en/stable/)
