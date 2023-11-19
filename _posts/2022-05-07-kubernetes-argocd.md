@@ -111,8 +111,6 @@ kubectl patch svc -n argocd argocd-server -p '{"spec": {"type": "NodePort"}}'
 
 ```shell
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-
-"초기비밀번호"
 ```
 
 ### 사이트 확인 & 로그인
