@@ -41,17 +41,17 @@ Obsidian의 가장 큰 장점중 하나가 무엇인가, 바로 다양한 커뮤
 version: '3.8'
 
 services:
-couchdb:
+  couchdb:
     image: couchdb
     container_name: couchdb-for-ols
     environment:
-- COUCHDB_USER=minkyu
-- COUCHDB_PASSWORD=kawApVAd&qAmS7
+      - COUCHDB_USER=minkyu
+      - COUCHDB_PASSWORD=kawApVAd&qAmS7
     volumes:
-- /home/ubuntu/couchdb/couchdb-data:/opt/couchdb/data
-- /home/ubuntu/couchdb/couchdb-etc:/opt/couchdb/etc/local.d
+      - /home/ubuntu/couchdb/couchdb-data:/opt/couchdb/data
+      - /home/ubuntu/couchdb/couchdb-etc:/opt/couchdb/etc/local.d
     ports:
-- "5984:5984"
+      - "5984:5984"
     restart: always
 ```
 
