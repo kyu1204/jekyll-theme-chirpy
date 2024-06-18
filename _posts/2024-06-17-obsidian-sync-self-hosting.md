@@ -3,7 +3,7 @@ title: couchdb를 이용해 obisidian sync 셀프 호스팅 하기
 categories: [obsidian]
 tags: [couchdb, obsidian, self-hosting]
 date: 2023-06-17 00:00:00 +09:00
-image: obsidian-sync.png
+image: obsidian.webp
 img_path: /assets/img/obsidian-sync/
 ---
 ## 개요
