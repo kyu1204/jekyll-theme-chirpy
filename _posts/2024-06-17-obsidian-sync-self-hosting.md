@@ -46,7 +46,7 @@ services:
     container_name: couchdb-for-ols
     environment:
       - COUCHDB_USER=minkyu
-      - COUCHDB_PASSWORD=kawApVAd&qAmS7
+      - COUCHDB_PASSWORD=db-password
     volumes:
       - /home/ubuntu/couchdb/couchdb-data:/opt/couchdb/data
       - /home/ubuntu/couchdb/couchdb-etc:/opt/couchdb/etc/local.d
